@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Order Confirmed</h1>
+<h2>Your order ID is: {{order_id}}</h2>
+{% include "order_price_breakdown.html" %}
+<a class="button primary" href="{{url_for('route_index')}}">Return to home page</a>
+{% endblock %}

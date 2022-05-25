@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Checkout:</h1>
+{% include "order_price_breakdown.html" %}
+<form style="border: none; background: transparent; margin:0; padding:0" action="{{url_for('route_confirm_order')}}" method="GET">
+    <div class="card fluid">
+        <button type="submit" style="float: right" class=" large tertiary">Confirm</button>
+        
+    </div>
+</form>
+<form style="border: none; background: transparent;  margin:0; padding:0" action="{{url_for('route_create_order', product_type='main')}}" method="GET">
+        <div class="card fluid">
+            <button type="submit" style="float: right" class=" large">Return</button>
+            
+        </div>
+    </form>
+{% endblock %}

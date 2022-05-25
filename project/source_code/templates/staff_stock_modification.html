@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <h1>Modify ingredient stock</h1>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <form class="transparent_background" action="{{url_for('route_staff_modify_stock')}}" method="POST">
+
+            
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Ingredient name</th>
+                            <th>Current quantity (unit)</th>
+                            <th>Quantity modification</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i,q in ingredient_stock %}
+                        <tr>
+                            <td data-label="Ingredient name">{{ i.name }}</td>
+                            <td data-label="Current quantity (unit)">{{q}}({{i.unit}})</td>
+                            <td data-label="Quantity modification">
+                                <input type="number" name="{{i.name}}">
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <button type="submit">Commit Change</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends "base_order_creation.html" %}
+{% block product_ordering %}
+
+<div class="container">
+    {% for k, p in items_for_selection.items() %}
+    <div class="row">
+        <div class="col-sm-12"><h2>{{k | capitalize()}}</h2></div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            {% with products_for_selection=items_for_selection[k] %}
+                {% include "order_quantity_selection.html" %}
+            {% endwith %}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

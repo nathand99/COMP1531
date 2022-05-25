@@ -1,0 +1,49 @@
+<!--
+    Inputs:
+        - products: Holds details of all the available products [List<{'name': str, 'max_quantity': int, price: float, ordered_quantity: int)>]
+        - is_dropdown: If true, the input field would be in dropdown menu format [bool]
+
+    Request:
+        - POST:
+            - product name [str] -> updated quantity of that product [int]
+    Notes:
+        - onChange tag in <select> and <input> includes javascript code to automatically transmit a POST request of the resepctive quantity
+-->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <table class="scrollable">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Max available quantity</th>
+                        <th>Quantity wanted</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for p in products_for_selection %}
+                    <tr>
+                        <td data-label="Name">{{ p.name }}</td>
+                        <td data-label="Price (AUD)">{{ p.price }}</td>
+                        <td data-label="Max available quantity">{{ p.max_quantity }}</td>
+                        <td data-label="Quantity wanted">
+                            <form style="margin: 0; padding: 0" name="{{p.name}}" method="POST">
+                                {% if is_dropdown %}
+                                <select name="{{p.name}}" onchange="this.form.submit()" {% if p.max_quantity <= 0 %} disabled {% endif %}>
+                                    {% for i in range(p.max_quantity+1) %}
+                                    <option value="{{i}}" {% if p.ordered_quantity == i %} selected {% endif %}>{{i}}</option>
+                                    {% endfor %}
+                                </select>
+                                {% else %}
+                                <input type="number" name="{{p.name}}" value="{{p.ordered_quantity}}" {% if p.max_quantity <= 0 %} disabled {% endif %} onchange="this.form.submit()"/>
+                                {% endif %}
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,75 @@
+{% extends "base_order_creation.html" %}
+{% block product_ordering %}
+
+<div class="container">
+    <div class="row">
+            <div class="col-sm-4">
+                <h1>Select a main type:</h1>
+            </div>
+        <div class="col-sm-8">
+            <div class="container">
+                <form class="transparent_background" style="position: relative; padding-top: 10%" action="{{ url_for('route_create_order', product_type='main')}}" method=POST>
+                    <div class="container" style="position: absolute; top:50%; left:35%; margin-right: -50%; transform: translate(-50%, -50%)">
+                        {% for m in items_for_selection["main type"] %}
+                        <button class="large {% if ordered_main_type is not none and ordered_main_type.name == m.name %}primary{% endif %}"  name="main type" value="{{m.name}}" type="submit" {% if ordered_main_type.name == m.name or not m.is_available %}  disabled {% endif %}>
+                            <h4>{{m.name | capitalize()}}</h4>
+                        </button>
+                        {% endfor %}
+                        {% if ordered_main_type is not none %}
+                        <button type="submit" name="reset" value="True">Reset to default {{ordered_main_type.name}}</button>
+                        {% endif %}
+                    </div>
+                
+                </form>
+            
+            </div>
+        </div>
+    </div>
+    {% if ordered_main_type is not none %}
+    <div class="row">
+        <!-- StandardMain selection -->
+        <div class="col-sm-12 col-md-4">
+            <h2>Available Standard Main:</h2>
+            <table class="scrollable">
+                <tbody>
+                {% for sm in items_for_selection["standard main"] if sm['is_available'] %}
+                <tr><td>
+                    <form class="transparent_background" action="{{url_for('route_create_order', product_type='main')}}" method='POST'>
+                        <button style="width: 100%" name="standard main" value="{{sm.name}}" type="submit">
+                            <h5>{{sm.name}}</h5>
+                            <ul>
+                                {% for p,q in sm.product_quantities %}
+                                <li>{{p.name}} X {{q}}</li>
+                                {% endfor %}
+                            </ul>
+                        </button>     
+                    </form>
+                </td></tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="col-sm-12 col-md-8">
+            {% for k, p in items_for_selection.items() if k != "main type" and k != "standard main" %}
+            <div class="row">
+                <div class="col-sm-12"><h2>{{k | capitalize()}}</h2></div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    {% with products_for_selection=items_for_selection[k] %}
+                        {% include "order_quantity_selection.html" %}
+                    {% endwith %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        {% endif %}
+    </div>
+</div>
+
+
+
+
+
+{% endblock %}

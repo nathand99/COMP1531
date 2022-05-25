@@ -1,0 +1,12 @@
+<div class="row">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-10">
+        <form class="transparent_background" action="{{url_for('route_staff_inquiry_order')}}" method="POST">
+            <input hidden type="text" name="order_id" value={{order.id}}>
+            {% for a in actions %}
+            <button type="submit" name="action" value="{{a}}">{{a}}</button>
+            {% endfor %}
+        </form>
+    </div>
+    <div class="col-sm-1"></div>
+</div>

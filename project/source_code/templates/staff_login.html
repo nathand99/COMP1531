@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<div>
+<h1>Staff Login</h1>
+<br/> 
+<form method="POST">
+    <input type="password" name="staff_code" placeholder="staff code" value="{{staff_code}}"/>
+    <br/>
+    <input name = "submit" value="submit" type ="submit">
+</form>
+
+</div>
+
+{% endblock %}

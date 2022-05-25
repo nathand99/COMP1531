@@ -1,0 +1,39 @@
+<!--
+    Inputs:
+        - order: Holds details of the order [{name: str, status: str, "main type": str, "type_products":{type1: [{name: str, quantity: int}, {}], type2:}}]
+-->
+{% extends "base.html" %}
+{% block content %}
+<h2>Order ID: {{order.id}}</h2>
+<h3>Status: {{order.status}}</h3>
+<div class="container">
+    {% include "staff_order_inquiry_button_set.html" %}
+    <div class="row">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-10">
+            <h2 style="align-self: center">Main Type: {{order.main_type.name | capitalize()}}</h2>
+            {% for t, products_quantities in order.type_product_quantities.items() %}
+            <h4>{{t|capitalize()}}</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Quantity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for p,q in products_quantities %}
+                    <tr>
+                        <td data-label="Name">{{ p.name }}</td>
+                        <td data-label="Quantity">{{ q }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% endfor %}
+        </div>
+        <div class="col-sm-1"></div>
+    </div>
+    {% include "staff_order_inquiry_button_set.html" %}
+</div>
+{% endblock %}

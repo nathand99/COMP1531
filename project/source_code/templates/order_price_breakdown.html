@@ -1,0 +1,46 @@
+<!--
+    Inputs:
+        - ordered_products: Holds details of all the ordered products [List<(name: str, price: float, ordered_quantity: int)>]
+        - total_price: Total price of the current order [float]
+-->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-10">
+            <h1>Price Breakdown:</h1>
+            <h2 style="align-self: center">Main Type: {{ordered_main_type.name | capitalize()}} {% if ordered_main_type is not none %}(Base price: ${{'%0.2f'| format(ordered_main_type.base_price|float)}}){% endif %}</h3>
+            {% for t, products in ordered_products.items() %}
+            <h4>{{t|capitalize()}}</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Price (AUD)</th>
+                        <th>Quantity</th>
+                        <th>Subtotal (AUD)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for p in products %}
+                    <tr>
+                        <td data-label="Name">{{ p.name }}</td>
+                        <td data-label="Price (AUD)">$ {{'%0.2f'| format(p.price|float) }}</td>
+                        <td data-label="Quantity">{{ p.quantity }}</td>
+                        <td data-label="Subtotal (AUD)">$ {{'%0.2f'| format(p.price * p.quantity|float) }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% endfor %}
+
+            <div class="container">
+                <div class="card fluid">
+                    <div class="section" >
+                        <h3 style="float: right; padding-right: 2%">Total (AUD):  ${{ total_price }}</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-1"></div>
+    </div>
+</div>

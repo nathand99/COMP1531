@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <!-- Allow users to select status of the orders included in the table -->
+    <div class="row">
+        <div class ="col-sm-2"></div>
+        <div class ="col-sm-8">
+            <div class="button-group">
+                {% for status in all_status %}
+                <a href="{{url_for('route_staff_monitor_orders', status=status) }}" class="button{% if selected_status==status %} primary disabled{% endif %}">{{status}}</a>
+                {% endfor %}
+            </div>
+        </div>
+        <div class ="col-sm-3"></div>
+    </div>
+
+    <!-- Show the table of checked out orders and arranged them -->
+    <div class="row">
+        <div class="col-sm-12">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Status</th>
+                        <th>Items Brief</th>
+                        <th>Checkout time</th>
+                        <th>Time passed from checkout</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for o in orders %}
+                    <tr>
+                        <td data-label="ID">{{ o.id }}</td>
+                        <td data-label="Status">{{ o.status }}</td>
+                        <td data-label="Items Brief">
+                            <h6>Main type: {{o.main_type.name|capitalize()}}</h6>
+                            <ul>
+                                {% for t,q in o.type_quantities.items() %}
+                                <li>{{t|capitalize()}} x {{q}}</li>
+                                {% endfor %}
+                            </ul>
+                        </td>
+                        <td data-label="Checkout time">{{ o.checkout_timestamp_str}}</td>
+                        <td data-label="Time passed from checkout">{{ o.duration_from_checkout_str }}</td>
+                        <td data-label="Action">
+                            <form style="margin: 0%; padding: 0%" class="transparent_background" action="{{url_for('route_staff_inquiry_order')}}" method="POST">
+                                <button type="submit" name="order_id" value="{{o.id}}">Inspect</button>
+                            </form>
+                        
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!--<link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
+        -->
+        <link rel="stylesheet" href="https://cdn.rawgit.com/Chalarangelo/mini.css/v3.0.1/dist/mini-default.min.css">
+        <title>Outlet Order System</title>
+        <style>
+            .right_header {
+                float: right;
+            }
+            .top_message {
+                align-self: center;
+                /* font-size: 20sp;
+                background-color: #e9a7bb;
+                color: rgb(160, 49, 49); */
+            }
+
+            .positive {
+                background: rgb(79, 143, 89);
+                color: white;
+            }
+
+            a.disabled {
+                pointer-events: none;
+                cursor: default;
+            }
+
+            .transparent_background {
+                background: transparent;
+                border: transparent;
+            }
+
+        </style>
+        {% block head %}{% endblock %}
+    </head>
+    
+    <body>
+
+        <!-- Major tabs at the page's top -->
+        <header class="sticky">
+            <a href="{{ url_for('route_index') }}" class="logo">Home</a>   
+            {% if version is not defined or version == "customer" %}
+            <a href="{{ url_for('route_create_order', product_type='main') }}" class="button">Create Order</a>
+            <a href="{{ url_for('route_customer_inquire_order') }}" class="button">Inquiry Order</a>
+            <a href="{{ url_for('route_staff_login') }}" class="button">Staff Login</a>
+            {% else %}
+            <a href="{{ url_for('route_staff_monitor_orders', status='All')}}" class="button">Monitor Orders</a>
+            <a href="{{ url_for('route_staff_modify_stock')}}" class="button">Modify Stock</a>
+            <a href="{{ url_for('route_staff_logout')}}" class="button">Staff Logout</a>
+            {% endif %} 
+        </header>
+        
+        
+        <div class="container">
+        {% if top_messages is defined %}
+            {% for m in top_messages["positive"] %}
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card fluid positive">
+                        <p class="top_message">{{m}}</p>
+                    </div>
+                </div>
+                
+            </div>
+            {% endfor %}
+            {% for m in top_messages["negative"] %}
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card fluid error">
+                        <p class="top_message">{{m}}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        {% endif %}
+        
+        <!-- Major content -->
+        {% block content %}{% endblock %}
+        </div>
+    </body>
+</html>

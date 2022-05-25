@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<form action="{{url_for('route_customer_inquire_order')}}" method="POST">
+    <h2>Enter your order ID:</h2>
+    <input type="password" name="order_id", value="{{order_id}}">
+    <input type="submit">
+</form>
+{% if status is defined and status is not none %}
+<h2>Order ID: {{order_id}}</h2>
+<h3>Status: {{status}}</h3>
+{% include "order_price_breakdown.html" %}
+{% endif %}
+{% endblock %}

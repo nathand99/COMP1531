@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+<form class="transparent_background" action="{{url_for('route_checkout_order')}}" method="GET">
+    <button type="submit" style="float: right" class=" large tertiary">Checkout</button>
+</form>
+<div class="container">
+    <div class="row">
+        <div class ="col-sm-3"></div>
+        <div class ="col-sm-6">
+            <div class="button-group">
+                <a href="{{url_for('route_create_order', product_type='main') }}" class="button{% if product_type=='main' %} primary disabled{% endif %}">Main</a>
+                <a href="{{url_for('route_create_order', product_type='side&drink') }}"  class="button {% if product_type=='side&drink' %}primary disabled{% endif %}">Sides & Drinks</a>
+            </div>
+        </div>
+        <div class ="col-sm-3"></div>
+    </div>
+</div>
+{% block product_ordering %}
+{% endblock %}
+<div>
+    <form class="transparent_background" action="{{url_for('route_checkout_order')}}" method="GET">
+        <button type="submit" style="float: right" class=" large tertiary">Checkout</button>
+    </form>
+</div>
+
+<br>
+
+
+{% include "order_price_breakdown.html" %}
+<div>
+    <form class="transparent_background" action="{{url_for('route_checkout_order')}}" method="GET">
+        <button type="submit" style="float: right" class=" large tertiary">Checkout</button>
+    </form>
+</div>
+
+
+{% endblock %}
