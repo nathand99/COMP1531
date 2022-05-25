@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>BMI Calculator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="main.js"></script>
+</head>
+<body>
+    <H1> BMI calculator</H1>
+    <form name="form1">
+        <input type="text" name="mass" size=30> Enter your weight in kg <br>
+        <input type="text" name="Height" size=30> Enter your height in cms <br>
+        <p>Click on Submit when you have typed your weight and height</p>
+        <input type="button" value="Go!" onclick="area1.value=Number(mass.value)/(Number(Height.value) * Number(Height.value))"> 
+        
+        <br>
+        <br>
+        <textarea name="area1" rows=5 cols=20></textarea>
+
+        
+    </form>
+</body>
+</html>

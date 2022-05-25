@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Week05_Python_Functions</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><p><strong>1: Assigning a function to a variable</strong></p>
+<pre><code>def hello_world(name):
+    return "Hello World! " + name
+
+my_function = hello_world
+print(my_function("Sally"))
+</code></pre>
+<p><strong>2: Nesting functions inside functions</strong></p>
+<pre><code>def nested_hello_world(name):
+    def greet():
+        return "Hello World! "
+    return greet() + name
+my_function = nested_hello_world
+print(my_function("Jerry"))
+</code></pre>
+<p><strong>3. Functions can return other functions</strong></p>
+<pre><code>def yet_another_hello_world():
+    def greeting(name):
+        return "Hello again " + name
+    return greeting
+my_function = yet_another_hello_world()
+print(my_function("Jane"))
+</code></pre>
+<p><strong>4: Passing functions as parameters to other functions</strong></p>
+<pre><code>def greet(name,lang):
+    if lang=='French':
+        return 'Bonjour ' + name
+    else:
+        return 'Hello' + name
+
+def another_hello_world(some_function):
+    my_name="Samuel"
+    my_lang="French"
+    return greet(my_name,my_lang)      
+
+print(another_hello_world(greet))
+</code></pre>
+<p><strong>5: Passing functions as parameters to other functions</strong></p>
+<pre><code>def increase(x):
+    return x+1
+
+def decrease(x):
+    return x-1
+
+def square(x):
+    return x*x
+
+def apply_function_list(func_list,number):
+    if (len(func_list) == 0):
+        return number
+    else:
+        return apply_function_list(func_list[1:],func_list[0](number))
+print("result:{0}".format(apply_function_list([increase,decrease,square],10)))
+</code></pre>
+<p><strong>6. Use the above ideas to create a function decorator</strong></p>
+<pre><code>def say_hello():
+    return "Hello World," 
+
+def my_decorator(func):
+    def wrapper():
+        name="jack"
+        return func() + name
+    return wrapper
+
+decorated_function=my_decorator(say_hello)
+print(decorated_function()) 
+
+#Here is a shorter way of defining a decorator
+@my_decorator
+def say_hello_2():
+    return "Bonjour ...."
+print(say_hello_2() )
+
+
+#Passing paramters to decorators
+def tag(name):
+    def my_decorator(func):
+        def wrapper():
+            return func() + name
+        return wrapper
+    return my_decorator
+
+@tag("jack")
+def say_hello_3():
+    return "Namaste ...."
+print(say_hello_3() )
+</code></pre>
+</div>
+</body>
+
+</html>
